@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1930 Saathi: confirm your complaint</title>
+<link rel="stylesheet" href="/css/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2337352f%22/%3E%3Ctext x=%2216%22 y=%2221%22 font-size=%2211%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22%3E1930%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="banner">Your complaint is already being acted on. This step only confirms the phone number is yours.</div>
+<header class="top">
+  <div class="brand"><div class="logo">1930</div>1930 Saathi<small>Confirm complaint</small></div>
+  <nav class="links"><a href="/">Overview</a><a href="/caller.html">Caller</a><a href="/console.html">Officer console</a></nav>
+  
+</header>
+
+<main class="narrow">
+  <h1>शिकायत की पुष्टि करें</h1>
+  <p class="muted" style="margin:0 0 20px">Confirm your complaint with the code from the SMS.</p>
+  <form id="f">
+    <input class="field" id="cid" placeholder="Complaint number, e.g. S1930-123456" required>
+    <input class="field" id="code" placeholder="6-digit code" inputmode="numeric" maxlength="6" required>
+    <button class="btn primary" type="submit">Confirm</button>
+    <div id="msg" style="font-size:14px"></div>
+  </form>
+  <div class="section" style="margin-top:28px">
+    <h2>How was the call?</h2>
+    <div class="stars" id="stars" role="radiogroup" aria-label="Rating"></div>
+    <div class="stack" style="margin-top:8px">
+      <textarea id="comment" class="field" rows="3" placeholder="Anything confusing? (optional)"></textarea>
+      <div class="row"><button class="btn" id="fb">Send feedback</button><span id="fbmsg" class="muted"></span></div>
+    </div>
+  </div>
+</main>
+<script src="/js/common.js"></script>
+<script>
+const q = new URLSearchParams(location.search);
+if (q.get('case')) document.getElementById('cid').value = q.get('case');
+document.getElementById('f').onsubmit = async e => {
+  e.preventDefault();
+  try {
+    const r = await api('/api/verify', { case_id: document.getElementById('cid').value, code: document.getElementById('code').value });
+    document.getElementById('msg').textContent = r.ok ? 'Confirmed. Thank you.' : r.message;
+  } catch (err) { document.getElementById('msg').textContent = err.message; }
+};
+let rating = 0;
+const stars = document.getElementById('stars');
+function drawStars() {
+  stars.innerHTML = [1, 2, 3, 4, 5].map(i => `<span data-i="${i}">${i <= rating ? '★' : '☆'}</span>`).join('');
+  stars.querySelectorAll('span').forEach(s => s.onclick = () => { rating = +s.dataset.i; drawStars(); });
+}
+drawStars();
+document.getElementById('fb').onclick = async () => {
+  if (!rating) { document.getElementById('fbmsg').textContent = 'Pick a rating'; return; }
+  await api('/api/feedback', { role: 'caller', rating, comment: document.getElementById('comment').value, case_id: document.getElementById('cid').value || null });
+  document.getElementById('fbmsg').textContent = 'Thanks!';
+};
+</script>
+</body>
+</html>

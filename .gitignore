@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+data/cases.json
+data/tts_cache/
+data/check/
+eval/report_failures.json
+.pytest_cache/
+data/saathi.db*
+data/recordings/

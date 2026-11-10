@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1930 Saathi: voice test volunteers</title>
+<link rel="stylesheet" href="/css/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2337352f%22/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="banner">Volunteer recording page. Every number on these cards is invented. Never read your own real numbers.</div>
+<header class="top">
+  <div class="brand"><div class="logo">1930</div>1930 Saathi<small>Help test the voice agent</small></div>
+</header>
+<main class="narrow wide">
+  <h1>Help test the voice agent</h1>
+  <p class="muted" style="margin:0 0 18px">Read each card out loud the way you would on a phone call: in your language, at your speed, with "umm"s if that's
+    how you talk. Ten cards take about three minutes. Recordings are used only to measure accuracy and are deleted after evaluation.</p>
+  <div class="settings" style="grid-template-columns:1fr;gap:8px">
+    <label class="toggle">Language
+      <select id="lang" class="field"><option value="hi">Hindi / Hinglish</option><option value="pa">Punjabi</option>
+        <option value="ta">Tamil</option><option value="en">English</option></select></label>
+    <label class="toggle">Your first name (optional) <input type="text" id="vol" maxlength="20" class="field" style="width:160px"></label>
+    <label class="toggle"><input type="checkbox" id="phone" checked> Phone-line quality (8 kHz)</label>
+    <label class="toggle"><input type="checkbox" id="consent"> I agree that my recordings of these invented cards may be stored to test 1930 Saathi and deleted after evaluation.</label>
+  </div>
+
+  <div class="recordcard">
+    <div class="muted" id="fieldLabel">Card</div>
+    <div id="card" class="big mono">—</div>
+    <div class="muted" id="hint" style="min-height:22px"></div>
+    <div class="row" style="justify-content:center;margin-top:16px;gap:12px">
+      <button class="mic" id="mic" title="Hold to record" aria-label="Hold to record">🎙</button>
+      <button class="btn" id="skip">Skip card</button>
+    </div>
+    <div class="muted" id="status" style="margin-top:12px">Hold the mic, read the card, release.</div>
+    <div style="margin-top:6px"><b id="count">0</b> <span class="muted">recordings sent</span></div>
+  </div>
+</main>
+<script src="/js/common.js"></script>
+<script src="/js/recorder.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const key = new URLSearchParams(location.search).get('key') || '';
+const rec = new WavRecorder();
+let card = null, sent = 0;
+const NAMES = ['ramesh', 'sunita', 'amit', 'priya', 'kycupdate', 'refund', 'help', 'support', 'rk', 'gurpreet', 'karthik'];
+const PSP = ['ybl', 'okaxis', 'oksbi', 'paytm', 'ibl'];
+const HINTS = {
+  utr: 'Read it like a UTR from a bank SMS, in groups or digit by digit.',
+  amount: 'Say the amount the way you naturally would, e.g. "pachpan hazaar".',
+  upi: 'Say "at the rate" for @ and "dot" for the full stop.',
+  time: 'Say it like you are telling the helpline when the money went.',
+  mobile: 'Read the 10-digit mobile number.',
+};
+const r = n => Math.floor(Math.random() * n);
+function newCard() {
+  const f = ['utr', 'utr', 'amount', 'upi', 'upi', 'time', 'mobile'][r(7)];
+  let shown, expected;
+  if (f === 'utr') { expected = String(1 + r(9)) + Array.from({ length: 11 }, () => r(10)).join(''); shown = expected.replace(/(\d{4})(?=\d)/g, '$1 '); }
+  if (f === 'mobile') { expected = String(6 + r(4)) + Array.from({ length: 9 }, () => r(10)).join(''); shown = expected; }
+  if (f === 'amount') { const v = [3500, 12000, 45000, 55000, 150000, 175000, 250000, 7500, 99000][r(9)]; expected = v; shown = '₹' + v.toLocaleString('en-IN'); }
+  if (f === 'upi') { const n = NAMES[r(NAMES.length)] + (Math.random() < .3 ? '.' + NAMES[r(NAMES.length)] : ''); expected = n + '@' + PSP[r(PSP.length)]; shown = expected; }
+  if (f === 'time') { const m = [5, 10, 20, 30, 45, 90, 120][r(7)]; expected = m; shown = m < 60 ? m + ' minutes ago' : (m / 60) + ' hours ago'; }
+  card = { field: f, expected, shown };
+  $('fieldLabel').textContent = f.toUpperCase();
+  $('card').textContent = shown;
+  $('hint').textContent = HINTS[f];
+}
+const start = async e => { e.preventDefault(); if (!$('consent').checked) { $('status').textContent = 'Please tick the consent box first.'; return; }
+  try { await rec.start(); $('mic').classList.add('rec'); $('status').textContent = 'Recording…'; } catch (err) { $('status').textContent = 'Microphone not available: ' + err.message; } };
+const stop = async e => { e.preventDefault(); if (!rec.recording) return; $('mic').classList.remove('rec');
+  const { b64, seconds } = await rec.stop($('phone').checked ? 8000 : 16000);
+  if (seconds < 0.6) { $('status').textContent = 'Too short, try again.'; return; }
+  try {
+    await api('/api/collect', { key, consent: true, field: card.field, expected: card.expected, card: card.shown,
+      lang: $('lang').value, phone_mode: $('phone').checked, volunteer: $('vol').value, audio_b64: b64 });
+    sent++; $('count').textContent = sent; $('status').textContent = 'Saved. Next card.'; newCard();
+  } catch (err) { $('status').textContent = 'Not saved: ' + err.message; } };
+$('mic').addEventListener('pointerdown', start); $('mic').addEventListener('pointerup', stop); $('mic').addEventListener('pointerleave', stop);
+$('skip').onclick = newCard;
+if (!key) $('status').textContent = 'This page needs the link with ?key=… from the organiser.';
+newCard();
+</script>
+</body>
+</html>

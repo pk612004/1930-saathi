@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1930 Saathi: voice intake for cyber-fraud victims</title>
+<link rel="stylesheet" href="/css/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2337352f%22/%3E%3Ctext x=%2216%22 y=%2221%22 font-size=%2211%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22%3E1930%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="banner">Student prototype for the Great Indian AI Internship Challenge. Not an official government service. Synthetic data only.</div>
+<header class="top">
+  <div class="brand"><div class="logo">1930</div>1930 Saathi<small>Overview</small></div>
+  <nav class="links"><a class="active" href="/">Overview</a><a href="/caller.html">Caller</a><a href="/console.html">Officer console</a></nav>
+  <div class="badges" id="modes"></div>
+</header>
+
+<main class="doc">
+  <div class="pageicon" aria-hidden="true">📞</div>
+  <h1>When the 1930 line is busy, Saathi answers</h1>
+  <p class="lead">A voice agent for cyber-fraud victims. It listens in Hindi, Hinglish, Punjabi, Tamil or English, collects every
+    number a complaint needs, reads the important ones back, and puts a ready case in front of an officer while the money
+    can still be frozen.</p>
+  <div class="cta">
+    <a class="btn primary" href="/caller.html">Try a call</a>
+    <a class="btn" href="/console.html">Open officer console</a>
+  </div>
+
+  <div class="callout"><span class="ic">⏱</span><div>Banks recover far more when a fraud is reported inside the first two hours.
+    Every minute a victim waits on a busy line is money that moves on to the next mule account.</div></div>
+
+  <h3>Why it matters</h3>
+  <ul class="facts-list">
+    <li><b>≈ 3.24 crore</b><span>calls to 1930 in 2025 (reported), roughly one every second</span></li>
+    <li><b>70–80% vs 15–20%</b><span>reported recovery inside vs after the first two hours</span></li>
+    <li><b>12 digits</b><span>in a UTR. One wrong digit sends the freeze request to the wrong transaction.</span></li>
+  </ul>
+
+  <h3>What it does</h3>
+  <div class="feat">
+    <div><b>Understands how people actually speak</b><span>"saade teen hazaar", "dedh lakh", "chaar ek do teen", "double five", on 8&nbsp;kHz phone audio through Gnani Prisma.</span></div>
+    <div><b>Never trusts a number blindly</b><span>UTR, UPI ID and mobile are checked in code, then read back through Gnani Timbre for the caller to confirm.</span></div>
+    <div><b>Stops a scam still in progress</b><span>If the caller is on a "digital arrest" video call or has AnyDesk open, safety comes before questions.</span></div>
+    <div><b>Ranks by money still recoverable</b><span>Officers see complaints ordered by golden-window time left, with a live countdown.</span></div>
+    <div><b>Links victims of the same mule</b><span>Complaints paying the same UPI ID or account join one ring the moment a call ends. Repeat reports of one debit are flagged, not double-counted.</span></div>
+    <div><b>Ends with work done</b><span>A portal-ready complaint, a bank freeze-request draft and an SMS to the caller, all for officer review.</span></div>
+  </div>
+
+  <h3>How a call flows</h3>
+  <ol class="steps">
+    <li><b>Prisma</b> transcribes the caller at telephone quality.</li>
+    <li>The <b>Saathi engine</b> pulls out amount, time, mode, UTR, fraudster ID and bank, checks for a live threat and validates each field.</li>
+    <li><b>Timbre</b> asks the next question and reads critical numbers back digit by digit.</li>
+    <li><b>Evon v3.3</b> (optional, self-hosted) writes the officer summary and fills fields the rules miss.</li>
+    <li>The case lands in the <b>officer console</b> with priority, countdown, ring links and drafts.</li>
+  </ol>
+</main>
+<script src="/js/common.js"></script>
+<script>showModes(document.getElementById('modes'));</script>
+</body>
+</html>

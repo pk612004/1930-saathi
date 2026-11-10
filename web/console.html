@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1930 Saathi: officer console</title>
+<link rel="stylesheet" href="/css/app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2337352f%22/%3E%3Ctext x=%2216%22 y=%2221%22 font-size=%2211%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22%3E1930%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="banner">Prototype officer console. Invented complaints only. Drafts are not sent to any bank or government system.</div>
+<header class="top">
+  <div class="brand"><div class="logo">1930</div>1930 Saathi<small>Officer console</small></div>
+  <nav class="links"><a href="/">Overview</a><a href="/caller.html">Caller</a><a class="active" href="/console.html">Officer console</a></nav>
+  <div class="row"><div class="badges" id="modes"></div><button class="btn" id="seedBtn">Load demo complaints</button>
+    <span class="muted" id="who" style="font-size:13px"></span><button class="btn ghost" id="logoutBtn">Log out</button></div>
+</header>
+
+<section class="pulse" id="pulse" aria-live="polite">
+  <div class="pulse-main">
+    <div class="pulse-amt" id="pulseAmt">₹0</div>
+    <div class="pulse-lbl">still inside the golden window and not yet sent for freeze</div>
+  </div>
+  <div class="pulse-stats">
+    <div><b id="pulseCases">0</b><span>complaints inside the window</span></div>
+    <div><b id="pulseFrozen">₹0</b><span>freeze requested</span></div>
+    <div><b id="pulseLost">₹0</b><span>past the window</span></div>
+    <button class="pulse-next" id="pulseNext" disabled><span class="muted">Next to run out</span><b id="pulseNextTxt">—</b></button>
+  </div>
+</section>
+
+<div class="console">
+  <aside class="col queue">
+    <div id="live"></div>
+    <h2>Queue, most urgent first</h2>
+    <div id="queue"><div class="empty">No complaints yet. Make a call from the caller page, or load demo complaints.</div></div>
+  </aside>
+
+  <main class="col main">
+    <div class="detail" id="detail"><div class="empty">Select a complaint from the queue.</div></div>
+  </main>
+
+  <aside class="col right">
+    <div class="section">
+      <h2>Mule-account rings</h2>
+      <svg class="graph" id="graph" viewBox="0 0 320 220" role="img" aria-label="Complaints linked by shared fraudster identifiers"></svg>
+      <div id="rings" style="margin-top:6px"></div>
+    </div>
+    <div class="section">
+      <h2>Live activity</h2>
+      <div class="events" id="feed"><div class="muted">Waiting for calls…</div></div>
+    </div>
+    <div class="section">
+      <h2>SMS outbox <span class="muted">(recorded, not sent)</span></h2>
+      <div class="events" id="outbox"><div class="muted">No messages yet.</div></div>
+    </div>
+    <div class="section">
+      <h2>Caller feedback</h2>
+      <div id="feedback" class="muted" style="font-size:13.5px">No feedback yet.</div>
+    </div>
+  </aside>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="/js/common.js"></script>
+<script src="/js/console.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+[
+  {
+    "mode": "text (simulated ASR errors)",
+    "calls": 500,
+    "seed": 1930,
+    "simulated_asr_error_rate_on_number_turns": 0.0,
+    "asr_errors_injected": 0,
+    "filed_pct": 100.0,
+    "field_accuracy_pct": {
+      "amount": 100.0,
+      "minutes": 100.0,
+      "mode": 99.0,
+      "suspect": 99.4,
+      "bank": 100.0,
+      "fraud_type": 99.0,
+      "txn_count": 100.0
+    },
+    "utr": {
+      "calls_with_utr": 454,
+      "first_heard_correct_pct": 96.7,
+      "final_correct_pct": 100.0,
+      "wrong_utr_filed_pct": 0.0,
+      "left_unknown_pct": 0.0
+    },
+    "suspect_id": {
+      "first_heard_correct_pct": 86.2,
+      "final_correct_pct": 99.4
+    },
+    "live_threat": {
+      "recall_pct": 96.2,
+      "false_positive_pct": 0.0,
+      "threat_calls": 105
+    },
+    "turns_per_call": {
+      "mean": 12.0,
+      "p90": 16
+    },
+    "estimated_call_seconds": {
+      "mean": 139,
+      "p90": 178
+    },
+    "engine_wall_ms_per_call": 17.49,
+    "disfluency": true,
+    "by_language": {
+      "dev": {
+        "calls": 123,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 99.2,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "en": {
+        "calls": 77,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 98.7,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "hi": {
+        "calls": 201,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 100.0,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "pa": {
+        "calls": 50,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 98.0,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "ta": {
+        "calls": 49,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 100.0,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 89.8,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      }
+    }
+  },
+  {
+    "mode": "text (simulated ASR errors)",
+    "calls": 500,
+    "seed": 1930,
+    "simulated_asr_error_rate_on_number_turns": 0.25,
+    "asr_errors_injected": 626,
+    "filed_pct": 100.0,
+    "field_accuracy_pct": {
+      "amount": 100.0,
+      "minutes": 100.0,
+      "mode": 99.0,
+      "suspect": 99.4,
+      "bank": 100.0,
+      "fraud_type": 99.0,
+      "txn_count": 100.0
+    },
+    "utr": {
+      "calls_with_utr": 454,
+      "first_heard_correct_pct": 72.7,
+      "final_correct_pct": 99.3,
+      "wrong_utr_filed_pct": 0.0,
+      "left_unknown_pct": 0.7
+    },
+    "suspect_id": {
+      "first_heard_correct_pct": 75.4,
+      "final_correct_pct": 99.4
+    },
+    "live_threat": {
+      "recall_pct": 96.2,
+      "false_positive_pct": 0.0,
+      "threat_calls": 105
+    },
+    "turns_per_call": {
+      "mean": 12.7,
+      "p90": 16
+    },
+    "estimated_call_seconds": {
+      "mean": 146,
+      "p90": 188
+    },
+    "engine_wall_ms_per_call": 18.48,
+    "disfluency": true,
+    "by_language": {
+      "dev": {
+        "calls": 123,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 99.2,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 99.1,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "en": {
+        "calls": 77,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 97.4,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "hi": {
+        "calls": 201,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 100.0,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 98.9,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "pa": {
+        "calls": 50,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 100.0,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 100.0,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      },
+      "ta": {
+        "calls": 49,
+        "filed_pct": 100.0,
+        "amount_pct": 100.0,
+        "suspect_pct": 100.0,
+        "bank_pct": 100.0,
+        "fraud_type_pct": 89.8,
+        "utr_final_pct": 100.0,
+        "wrong_utr_filed_pct": 0.0
+      }
+    }
+  }
+]
