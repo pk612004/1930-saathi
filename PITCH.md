@@ -3,6 +3,9 @@
 **Golden-hour voice intake for cyber-fraud victims, built on Gnani AI Prisma + Timbre.**
 Prakash Kumar · Thapar Institute of Engineering & Technology, Patiala · solo entry
 
+🎬 **Demo video:** https://youtu.be/bYyRllCvj4g
+💻 **Code:** https://github.com/pk612004/1930-saathi
+
 ## The problem
 - India's cyber-fraud helpline **1930** received about **3.24 crore calls in 2025**, roughly one every second.
 - Reported recovery is **70–80% if the fraud is reported in the first two hours, 15–20% after**. Lines get busy, and every minute on hold is money moving to the next mule account.
@@ -20,7 +23,7 @@ A voice agent that answers the victim immediately and hands the officer a ready 
 | **Live-threat interrupt**: still on a "digital arrest" video call or AnyDesk open → safety first | **Drafts ready**: bank freeze request, portal complaint, SMS to the caller, case timeline, audit trail |
 
 ## Proof
-- **Live Gnani run** (10 Nov 2026): Timbre audio cut to 8 kHz with street noise at 10 dB SNR → Prisma v3.0 got the amount and UTR right. It also exposed a real bug (amount and UTR glued into one number), now fixed and tested.
+- **Live Gnani run** (10 Nov 2026): Timbre audio cut to 8 kHz with street noise at 10 dB SNR → Prisma v3.0 got the amount and UTR right. Live testing also exposed two real bugs (amount and UTR glued into one number; "CBI" spelled letter by letter), both fixed and covered by tests.
 - **500 synthetic calls**, 25% of digits deliberately misheard: UTR correct **72.7% on first hearing → 99.3% after validation and read-back, 0 wrong UTRs filed**. Live-threat recall 96.2%, 0 false positives.
 - 118 automated tests; held-out phrasing sets 16/16 and 38/38.
 
